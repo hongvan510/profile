@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFEB3B">
+
+        <ImageView
+            android:id="@+id/ImageViewTroLai"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_trolai"/>
+    <TextView
+        android:id="@+id/textViewIdDonHangDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID Đơn Hàng: "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewIdKhachHangDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID Khách Hàng: "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewMonAnDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Danh sách món ăn: "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewTongTienDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tổng tiền: "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewTrangThaiDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trạng thái: "
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonXacNhan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xác nhận" />
+
+    <TextView
+        android:id="@+id/textViewThongBaoXacNhan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_green_light" />
+</LinearLayout>
