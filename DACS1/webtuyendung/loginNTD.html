@@ -1,0 +1,402 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-sCHmWouuZVco2fMveXjf69TwJic9LelrHRKCt0tAFbgtP3LGfFKtPvMjy4gz+6NRnWG0oxRfA5A/W4ikgXzF8g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../font/fontawesome-free-6.5.2-web/css/all.css">
+    <title>Login</title>
+
+
+
+    <style>
+
+
+
+            
+    body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+    
+    }
+
+    /* Header Styles */
+    .header {
+        background-color: #b9f5b6;
+        margin-top: -10px;
+        margin-left:-5px ;
+    }
+
+    .header_navbar-one {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .header_navbar-one .logo_2 p {
+        color: #22b21f;
+        font-size: 2rem;
+        font-weight: bold;
+        letter-spacing: 5px;
+        margin-left: -10%;
+    }
+
+    #header_navbar-menu-one,
+    #header_navbar-menu-two {
+        list-style: none;
+        display: flex;
+        align-items: center;
+    }
+
+    #header_navbar-menu-one li,
+    #header_navbar-menu-two li {
+    position: relative;
+    }
+
+    #header_navbar-menu-one li a
+    {
+    color: #22b21f;
+    text-decoration: none;
+    padding: 8px 10px; 
+    display: block; 
+    font-weight: 600;
+    width: max-content + calc(15px);
+    text-align: left;
+    margin-left: 15px ;
+    margin-right: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    #header_navbar-menu-two li a {
+    color: #22b21f;
+    text-decoration: none;
+    padding: 12px 10px; 
+    display: block; 
+    font-weight: 600;
+    width: max-content;
+    text-align: left;
+    margin-left: 15px ;
+    margin-right: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    #header_navbar-menu-one li:hover > a
+    {
+    background-color: #ecf0f1;
+    color: #27ae60;
+    border-radius: 5px;
+    }
+    #header_navbar-menu-two li:hover > a {
+    background-color: #1b9e19f8;
+    
+    }
+
+    .dropdown .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #b9f5b6;
+    list-style: none;
+    padding: 0;
+    min-width: 200px;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 5px 10px 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transition-delay: 0.3s;
+    }
+
+    .dropdown:hover .submenu,
+    .submenu:hover {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s; 
+    }
+
+    .submenu li {
+    width: 100%;
+    }
+
+    .submenu li a {
+    padding: 0.75rem 1.5rem;
+    
+    color: #ecf0f1;
+    white-space: nowrap;
+    text-align: left;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .submenu li a:hover {
+    background-color: #16a085;
+    color: #fff;
+    }
+
+    /*Đk , ĐN , ĐT*/
+    /* Button Styles */
+    .btn {
+    display: inline-block;
+    background-color: #22b21f;  
+    color: #f0f0f0;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn:hover {
+    background-color: #16a085;
+    transform: translateY(-3px);
+    box-shadow: 4px 4px 4px  rgba(0, 0, 0, 0.2);
+    }
+
+    /* Warpper Styles */
+    .warpper {
+    margin-left: 1rem;
+    }
+
+    /* Hero Section Styles */
+    .anh1 {
+    background: url('../img/anhtuyendung1.jpg') no-repeat center center;
+    background-size: cover;
+    height: 500px;
+    position: relative;
+    }
+
+    .chaomung {
+    text-align: center;
+    padding: 2rem;
+    color: #fff;
+    }
+
+    /*...............................*/
+    /*Css người dùng*/
+    .btn button{
+    color: #fff ;
+    padding: 4px 6px;
+    border: none;
+    height: 32px;
+    background-color: #1d9c1b;
+    border-radius: 10px;
+    margin-left: 2px;
+    cursor: pointer;
+    }
+    .btn button:hover{
+    background-color: #117964;
+    }
+
+        /*..................*/
+        
+        
+        </style>
+        
+        
+        <!-- phần menu -->
+        <div class="header">
+            <div class="header_navbar">
+                <nav class="header_navbar-one">
+                    <a style="text-decoration: none;"  href="">
+                        <div class="logo_2"><p>MoonNiyy</p></div>
+                    </a>
+                    <ul id="header_navbar-menu-one">
+                        <li><a href="trangchu.php">Trang chủ</a></li>
+                        <li class="dropdown"><a href="gioithieu.html">Giới thiệu</a>
+                            <ul class="submenu">
+                                <li><a href="tintuc.html">Tin tức</a></li>
+                                <li><a href="camnang.html">Cẩm nang hướng nghiệp</a></li>
+                                <li><a href="products1.php">Tìm việc làm phù hợp</a></li>
+                                
+                            </ul>
+                        </li>
+                        <li><a href="thongtin.php">Hồ sơ xin việc</a></li>
+                        <li class="dropdown"><a href="products.php">Việc làm</a>
+                            <ul class="submenu">
+                                <li><a href="products.php">Quản lí việc làm</a></li>
+                                <li><a href="products.php">Tìm việc làm theo địa chỉ</a></li>
+                                <li><a href="products.php">Tìm việc làm theo chức vụ</a></li>
+                                <li><a href="products.php">Tìm việc làm theo tên Công ty</a></li>
+                                <li><a href="products.php">Tìm việc làm phù hợp</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                    
+                    <ul id="header_navbar-menu-two">
+                    
+                        
+                        <div class="warpper">
+                            <li>
+                                <a class="btn" style="color: #fff;" href="register.html">
+                                    <span>Đăng ký</span>
+                                </a>
+                            </li>
+                        </div>
+                        <div class="warpper">
+                            <li>
+                                <a class="btn" style="color: #fff;" href="login.html">
+                                    <span>Đăng nhập</span>
+                                </a>
+                            </li>
+                        </div>
+                        <div class="warpper">
+                            <li>
+                                <a class="btn" style="color: #fff;" href="thongtinNTD.html">
+                                    <span>Đăng tuyển</span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        
+
+
+
+
+    <!--Form đăng nhập-->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h2 {
+            text-align: center;
+            color: #339341;
+            font-size: 30px;
+            background-color: #33934125;
+            box-shadow: 2px 2px 2px 2px #00000025;
+        }
+        .Login {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 3;
+            margin-top: 15px;
+            
+        }
+        .login-header {
+            transform: translate(-5%, 5%);
+        }
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .form-group label {
+            display: block;
+            width: 100px;
+            padding: 4px 8px;
+            color: #339341;
+        }
+        .form-group input {
+            width: 500px;
+            padding: 5px;
+            margin: 5px;
+            height: 30px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-bottom: 1px solid #339341;
+            
+        }
+        .form-group .toggle-password {
+            position: absolute;
+            transform: translate(-230%,100%);
+            cursor: pointer;
+            color: #339341;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            background-color: #339341e3;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button a {
+            text-decoration: none;
+            color: white;
+        }
+        .img2 p{
+            font-size: 30px;
+            color: #339341;
+            line-height: 50px;
+            margin-top: 20px;
+            transform: translate(15%, 15%);
+            background: linear-gradient(to right, #1d35210e, rgba(109, 225, 113, 0.878));
+            height: 400px;
+            width: 600px;
+            flex: 1;
+            border-top-left-radius: 100%;
+            text-align: left;
+        }
+
+       
+        .login-tong{
+            display: flex;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="login-tong">
+    <div class="img2"><p>Vui lòng đăng nhập để trải nghiệm tốt hơn.
+        Chúng tôi hân hạnh xin chào!
+        
+    </p></div>
+    <div class="Login">
+        <div class="login-header">
+            <h3 style="color: #339341; font-size: 35px; font-style: inherit;margin-top: -10px;">Chào mừng bạn đến với MoonNiy</h3>
+            <p style="font-size: 18px;">Đăng nhập để trải nghiệm nào</p>
+            <p style="font-size: 18px;">Sau khi đăng nhập sẽ chuyển qua trang người dùng</p>
+            <h2>Đăng nhập với nhà tuyển dụng</h2>
+            <form action="loginNTD.php" method="post">
+                <div class="form-group">
+                    <label for="usernameNTD"><i class="fa-solid fa-user"></i> Username:</label>
+                    <input type="text" id="usernameNTD" name="usernameNTD" placeholder="dài trên 8 kí tự" required>
+                </div>
+                <div class="form-group">
+                    <label for="passwordNTD"><i class="fa-solid fa-lock"></i> Password:</label>
+                    <input type="password" id="passwordNTD" name="passwordNTD" placeholder="từ 8 - 15 kí tự" required>
+                    <i class="fa-solid fa-eye toggle-password" onclick="togglePassword()"></i>
+                </div>
+                <button type="submit">Đăng nhập</button>
+                <h1 style="font-size: 15px;">Hoặc chưa có tài khoản bấm <a style="font-size: 20px; color: #339341;" href="registerNTD.html">Đăng ký</a></h1>
+                <h1 style="font-size: 15px;">Hoặc với tư cách ứng viên <a style="font-size: 20px; color: #339341;" href="register.html">Đăng ký</a> <a style="font-size: 20px; color: #339341;" href="login.html">Đăng nhập</a></h1>
+            </form>
+        </div>
+    </div>
+   
+</div>
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById('passwordNTD');
+            var togglePassword = document.querySelector('.toggle-password');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                togglePassword.classList.remove('fa-eye');
+                togglePassword.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                togglePassword.classList.remove('fa-eye-slash');
+                togglePassword.classList.add('fa-eye');
+            }
+        }
+    </script>
+</body>
+</html>

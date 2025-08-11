@@ -1,0 +1,322 @@
+
+
+/* Header Styles */
+.header {
+    background-color: #b9f5b6;
+    
+    }
+    
+    .header_navbar-one {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    .header_navbar-one .logo_2 p {
+      color: #22b21f;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 5px;
+      margin-left: -10%;
+      
+    }
+    
+    #header_navbar-menu-one,
+    #header_navbar-menu-two {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+    
+    #header_navbar-menu-one li,
+    #header_navbar-menu-two li {
+      position: relative;
+    }
+    
+    #header_navbar-menu-one li a
+     {
+      color: #22b21f;
+      text-decoration: none;
+      padding: 8px 10px; 
+      display: block; 
+      font-weight: 600;
+      width: max-content + calc(15px);
+      text-align: left;
+      margin-left: 15px ;
+      margin-right: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    #header_navbar-menu-two li a {
+      color: #22b21f;
+      text-decoration: none;
+      padding: 12px 10px; 
+      display: block; 
+      font-weight: 600;
+      width: max-content;
+      text-align: left;
+      margin-left: 15px ;
+      margin-right: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    #header_navbar-menu-one li:hover > a
+     {
+      background-color: #ecf0f1;
+      color: #27ae60;
+      border-radius: 5px;
+    }
+    #header_navbar-menu-two li:hover > a {
+      background-color: #1b9e19f8;
+      
+    }
+    
+    .dropdown .submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #b9f5b6;
+      list-style: none;
+      padding: 0;
+      min-width: 200px;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 5px 10px 8px 16px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+      transition-delay: 0.3s;
+    }
+    
+    .dropdown:hover .submenu,
+    .submenu:hover {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      transition-delay: 0s; 
+    }
+    
+    .submenu li {
+      width: 100%;
+    }
+    
+    .submenu li a {
+      padding: 0.75rem 1.5rem;
+      
+      color: #ecf0f1;
+      white-space: nowrap;
+      text-align: left;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .submenu li a:hover {
+      background-color: #16a085;
+      color: #fff;
+    }
+    
+    /*Đk , ĐN , ĐT*/
+    /* Button Styles */
+    .btn {
+      display: inline-block;
+      background-color: #22b21f;  
+      color: #f0f0f0;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      height: max-content;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .btn:hover {
+      background-color: #16a085;
+      transform: translateY(-3px);
+      box-shadow: 4px 4px 4px  rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Warpper Styles */
+    .warpper {
+      margin-left: 1rem;
+    }
+    
+    /* Hero Section Styles */
+    .anh1 {
+      background: url('../img/anhtuyendung1.jpg') no-repeat center center;
+      background-size: cover;
+      height: 500px;
+      position: relative;
+    }
+    
+    .chaomung {
+      text-align: center;
+      padding: 2rem;
+      color: #fff;
+    }
+    
+    /*...............................*/
+    /*Css người dùng*/
+    .btn button{
+      color: #fff ;
+      padding: 4px 6px;
+      border: none;
+      height: 32px;
+      background-color: #1d9c1b;
+      border-radius: 10px;
+      margin-left: 2px;
+      cursor: pointer;
+    }
+    .btn button:hover{
+      background-color: #117964;
+    }
+    
+  /*
+    .user-logout {
+      display: flex;
+      align-items: center;
+  }
+  
+  .user-logout .username {
+      margin-right: 10px;
+      font-weight: bold;
+      color: #22b21f;
+  }
+  .................*/
+  /*Css công việc nhà tuyển dụng đăng lên */
+  
+  
+   /**/ 
+  body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+  }
+  .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+  
+  }
+  .form-group {
+      flex-grow: 1;
+      margin-right: 10px; 
+  }
+  .form-container {
+      display: flex;
+      justify-content: space-between;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  h2 {
+      text-align: center;
+      color: #339341;
+      font-size: 30px;
+  }
+  form {
+      margin-top: 20px;
+  }
+  label {
+      display: flex;
+      margin-bottom: 5px;
+      color: #555;
+  }
+  input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 16px;
+  }
+  button {
+      margin-top: 26px;
+      width: 300px;
+      height: max-content;
+      padding: 8px;
+      font-size: 15px;
+      background-color: #339341;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+  }
+  button:hover {
+      background-color: #267026;
+  }
+  .job-list {
+      margin-top: 20px;
+  }
+  .job-item {
+      background-color: #fff;
+      padding: 15px -4px;
+      margin-bottom: 10px;
+      margin-top: 15px;
+      margin-left: 2px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #1d9c1b;
+      width: 1450px;
+  }
+  .job-item:hover{
+      background-color: #f3f5f7;
+  }
+  .job-item img {
+      width: 140px;
+      height: 140px;
+      border-radius: 15px;
+      margin-right: 15px;
+  }
+  .job-details {
+      flex-grow: 1;
+  }
+  .job-title {
+      margin: 10px;
+      font-size: 18px;
+      color: #339341;
+      margin: 8;
+  }
+  .job-company, .job-salary, .job-address {
+      margin: 5px 0;
+      
+    }
+  .delete-form {
+      margin-left: 20px;
+      margin-bottom: -20px;
+      margin-right: 10px;
+  
+  }
+  .job-ngayyeucau{
+      margin-right: -100px;
+      text-align: right;
+      transform: translateY(-550%);
+      font-size: 12px;
+  }
+  .ungtuyen{
+      transform: translateY(150%);
+      text-decoration: none;
+      border:1px solid #339341;
+      text-align: center;
+      padding: 4px;
+      width: max-content;
+      background-color: #339341 ;
+      border-radius: 5px;
+      color:#FFF;
+      margin-right: 15px;
+  }
+  .scroll-container {
+    height: 700px; 
+    overflow-y: auto;
+    border: 1px solid #ddd; 
+    padding: 4px; 
+}
+

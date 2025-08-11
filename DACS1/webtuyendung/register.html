@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-sCHmWouuZVco2fMveXjf69TwJic9LelrHRKCt0tAFbgtP3LGfFKtPvMjy4gz+6NRnWG0oxRfA5A/W4ikgXzF8g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/font/fontawesome-free-6.5.2-web/css/all.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <title>Register</title>
+</head>
+<body>
+
+
+  
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+  }
+</style>
+<!-- phần menu -->
+<div class="header">
+    <div class="header_navbar">
+        <nav class="header_navbar-one">
+            <a style="text-decoration: none;" href="index.php">
+                <div class="logo_2"><p>MoonNiyy</p></div>
+            </a>
+            <ul id="header_navbar-menu-one">
+                <li><a href="trangchu.php">Trang chủ</a></li>
+                
+                <li class="dropdown"><a href="user_dashboard.php">Hồ sơ CV</a>
+                    <ul class="submenu">
+                        <li><a href="xemhosochoungvien.php">Xem hồ sơ đã nộp</a></li>
+                        <li><a href="xemthongbaochoungvien.php">Xem thông báo</a></li>
+                        <li><a href="xemthongbaochoungvien.php">xem lịch phỏng vấn</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="trangchu.php">Việc làm</a>
+                    <ul class="submenu">  
+                    <li><a href="form.php">Nộp đơn xin việc </a></li>  
+                    </ul>
+                </li>
+            </ul>
+            <ul id="header_navbar-menu-two">
+               
+                <div class="warpper">
+                    <li>
+                        <a class="btn" style="color: #fff;" href="register.html">
+                            <span>Đăng ký</span>
+                        </a>
+                    </li>
+                </div>
+                <div class="warpper">
+                    <li>
+                        <a class="btn" style="color: #fff;" href="login.html">
+                            <span>Đăng nhập</span>
+                        </a>
+                    </li>
+                </div>
+                <div class="warpper">
+                    <li>
+                        <a class="btn" style="color: #fff;" href="thongtinNTD.php">
+                            <span>Đăng tuyển</span>
+                        </a>
+                    </li>
+                </div>
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+
+
+    <!--FORM đăng ký-->
+<div class="Register">
+    <div class="register-header">
+        <h3 style="color: #339341; font-size: 25px; font-style: inherit;">Chào mừng bạn đến với MoonNiy</h3>
+        <p style="font-size: 18px;">Hãy thiết lập tài khoản để có trải nghiệm tốt </p>
+        <h2>Đăng kí tài khoản</h2>
+        <form action="register.php" method="post">
+            <div class="form-group">
+                <label for="username"><i class="fa-solid fa-user"></i> Tài khoản:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="fa-solid fa-lock"></i> Mật khẩu:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="email"><i class="fa-solid fa-envelope"></i> Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <button type="submit">Đăng ký</button>
+        </form>
+        <h1 style="font-size: 15px;">Hoặc đã có tài khoản bấm <a style="font-size: 20px; color: #339341;" href="login.html">Đăng nhập</a></h1>
+        <h1 style="font-size: 15px;">Hoặc với tư cách nhà tuyển dụng <a style="font-size: 20px; color: #339341;" href="registerNTD.html">Đăng ký /</a><a style="font-size: 20px; color: #339341;" href="loginNTD.html"> Đăng nhập</a></h1>
+
+    </div>
+    <div class="register-body">
+       <h1>MoonNiyy</h1>
+       <p>Chào mừng bạn đến với chúng tôi</p>
+       <p>Chúng tôi sẽ giúp bạn có 1 việc làm ổn định</p>
+       <p>Tạo hồ sơ CV ngay</p>
+    </div>
+</div>
+<style>
+    body {
+            font-family: Arial, sans-serif;
+        }
+    .header{
+        margin-top: -10px;
+    }
+    h2 {
+        text-align: center;
+        color: #339341;
+        font-size: 30px;
+        width: 55%;
+        
+        background-color: #33934125;
+        box-shadow: 2px 2px 2px 2px #00000025;
+    }
+    .Register {
+        display: flex;
+        justify-content: space-around;
+        padding: 2px 3px;
+    }
+    .register-header {
+        transform: translate(20%);
+        flex: 1;
+    }
+    .register-body {
+        background: linear-gradient(to right, #1d35210e, rgba(109, 225, 113, 0.878));
+        /*background-color: #3393410e;*/
+        height: 30rem;
+        width: 50%;
+        transform: translate(-15%, 15%);
+        flex: 1;
+    }
+    .register-body h1{
+        font-size: 70px;
+        letter-spacing: 5px;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        color: #339341;
+        margin-top: 15%;
+    }
+    .register-body p:nth-of-type(1){
+            font-size: 15px;
+    }
+    .register-body p:nth-of-type(2){
+        font-size: 25px;
+        color: #339341;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        width: 200px;
+        padding: 4px 8px;
+        color: #339341;
+    }
+    .form-group input {
+        width: 400px; 
+        padding: 5px;
+        margin: 5px;
+        height: 30px; 
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 2px solid #ccc; 
+        outline: none; 
+    }
+    .form-group input:focus {
+        border-bottom: 2px solid #339341; 
+    }
+    button {
+        display: block;
+        width: 55%;
+        padding: 10px;
+        font-size: 15px;
+        background-color: #339341e3;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        
+    }
+</style>
+</body>
+</html>
