@@ -1,0 +1,107 @@
+﻿<Window x:Class="Project_QLTS_DNC.View.QuanLyPhieu.PhieuMuaMoiTS"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Phiếu Mua Mới Tài Sản"
+        Width="460" Height="400"
+        ResizeMode="NoResize"
+        Background="White"
+        WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Tiêu đề -->
+        <TextBlock Grid.Row="0" Text=" PHIẾU MUA MỚI TÀI SẢN" 
+                   Foreground="{DynamicResource PrimaryHueMidBrush}"
+                   FontSize="17" FontWeight="Bold" Margin="0,0,0,8"
+                   HorizontalAlignment="Center" TextAlignment="Center"/>
+
+        <!-- Thông tin phiếu -->
+        <Grid Grid.Row="3" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <!-- Thêm dòng mới -->
+            </Grid.RowDefinitions>
+
+            <!-- Loại phiếu -->
+            <ComboBox Grid.Row="0" Grid.Column="0" Margin="0,0,8,8"
+              x:Name="cboLoaiPhieu"
+              materialDesign:HintAssist.Hint="Loại Phiếu"
+              Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                <ComboBoxItem Content="Phiếu mua mới" />
+                <ComboBoxItem Content="Phiếu mua bổ sung" />
+            </ComboBox>
+
+            <!-- Mã nhân viên -->
+            <ComboBox Grid.Row="0" Grid.Column="1" Margin="0,0,8,8"
+              x:Name="cboMaNhanVien"
+              materialDesign:HintAssist.Hint="Mã Nhân Viên"
+              Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+
+            <!-- Ngày đề nghị -->
+            <DatePicker Grid.Row="1" Grid.Column="1" Margin="0,0,8,8"
+                x:Name="dpNgayDeNghi"
+                materialDesign:HintAssist.Hint="Ngày Đề Nghị"
+                Style="{StaticResource MaterialDesignOutlinedDatePicker}"/>
+
+            <!-- Ghi chú -->
+            <TextBox Grid.Row="2" Grid.Column="0" Margin="0,0,8,8"
+             x:Name="txtGhiChu"
+             materialDesign:HintAssist.Hint="Ghi chú"
+             Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+
+            <!-- Đơn vị đề nghị -->
+            <ComboBox Grid.Row="1" Grid.Column="0" Margin="0,0,8,8"
+              x:Name="cboDonViDeNghi"
+              materialDesign:HintAssist.Hint="Đơn vị đề nghị"
+              Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+
+            <!-- Lý do -->
+            <TextBox Grid.Row="2" Grid.Column="2" Margin="0,0,8,8"
+             x:Name="txtLyDo"
+             materialDesign:HintAssist.Hint="Lý Do"
+             Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+        </Grid>
+
+
+        <!-- Nút -->
+        <Grid Grid.Row="4" Margin="0,0,0,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Margin="0 0 16 0" x:Name="btnHuy"
+                    Style="{StaticResource MaterialDesignOutlinedButton}" Click="btnHuy_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Close" Margin="0 0 8 0"/>
+                    <TextBlock Text="HUỶ BỎ"/>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="2" x:Name="btnCapNhat"
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Background="{StaticResource PrimaryHueMidBrush}" Foreground="White" Click="btnCapNhat_Click" HorizontalAlignment="Right" Width="83">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="ContentSave" Margin="0 0 8 0"/>
+                    <TextBlock Text="LƯU"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

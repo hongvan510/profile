@@ -1,0 +1,248 @@
+﻿<UserControl x:Class="Project_QLTS_DNC.View.ChucVu.ChucVuForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Project_QLTS_DNC.View.ChucVu"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="650" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <!-- Định nghĩa các styles và templates -->
+        <Style x:Key="ActionButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="4"/>
+            <Setter Property="Margin" Value="5,0"/>
+            <Setter Property="Padding" Value="16,4"/>
+        </Style>
+
+        <!-- Style cho icon button -->
+        <Style x:Key="ActionIconButton" TargetType="Button">
+            <Setter Property="Width" Value="36"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="8"/>
+            <Setter Property="Margin" Value="2,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Bar - Title and Buttons -->
+        <Grid Grid.Row="0" Margin="15,15,15,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Title with icon -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                <materialDesign:PackIcon Kind="AccountTie" Width="24" Height="24" Foreground="{DynamicResource PrimaryHueMidBrush }" Margin="0,0,10,0"/>
+                <TextBlock Text="QUẢN LÝ CHỨC VỤ" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueMidBrush }" 
+                       VerticalAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Nút Thêm mới - Chỉ Admin mới thấy -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right"
+                       Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <Button x:Name="btnThemChucVu" Style="{StaticResource ActionButton}" Width="130" Background="{DynamicResource SecondaryCreate}"
+                        Command="{Binding ThemMoiCommand}" Click="btnThemChucVu_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Plus" Width="16" Height="16" Foreground="White" Margin="0,0,8,0"/>
+                        <TextBlock Text="Thêm mới" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Search Bar -->
+        <materialDesign:Card Grid.Row="1" Margin="15,10,15,15" UniformCornerRadius="4" Padding="0">
+            <Grid Margin="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Search Icon -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Search TextBox -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Search Button -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Refresh Button -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Search Icon -->
+                <materialDesign:PackIcon Grid.Column="0" Kind="Search" Width="18" Height="18" 
+                                Foreground="#757575" VerticalAlignment="Center" Margin="0,0,10,0"/>
+
+                <!-- Search TextBox with Material Design -->
+                <TextBox x:Name="txtTimKiem" Grid.Column="1" 
+                         materialDesign:HintAssist.Hint="Tìm kiếm theo mã hoặc tên chức vụ..."
+                         Style="{StaticResource MaterialDesignTextBox}"
+                         VerticalAlignment="Center" Margin="0,0,20,0" TextChanged="txtTimKiem_TextChanged">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding TimKiemCommand}" CommandParameter="{Binding Text, ElementName=txtTimKiem}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+
+                <!-- Search Button with Material Design -->
+                <Button x:Name="btnSearch" Grid.Column="2" Style="{StaticResource MaterialDesignRaisedButton}"
+                        Background="{DynamicResource PrimaryHueMidBrush }" Foreground="White" 
+                        materialDesign:ButtonAssist.CornerRadius="4"
+                        Height="36" Width="120"
+                        Command="{Binding TimKiemCommand}" CommandParameter="{Binding Text, ElementName=txtTimKiem}" Click="btnSearch_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Magnify" Width="16" Height="16" Foreground="White" Margin="0,0,8,0"/>
+                        <TextBlock Text="Tìm kiếm" VerticalAlignment="Center" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Button>
+
+                <Button x:Name="btnRefresh" Grid.Column="3"
+                         Command="{Binding RefreshDataCommand}"
+                        ToolTip="Làm mới danh sách" Height="36" Width="36"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        Background="#B0BEC5" Margin="8,0,0,0" Click="btnRefresh_Click">
+                    <materialDesign:PackIcon Kind="Refresh" Width="18" Height="18" HorizontalAlignment="Center"
+                                             Foreground="#3F51B5" VerticalAlignment="Center"/>
+                </Button>
+            </Grid>
+        </materialDesign:Card>
+
+        <!-- Bảng hiển thị danh sách -->
+        <DataGrid Grid.Row="2"
+                  x:Name="dvDanhsachchucvu"
+                  ItemsSource="{Binding DanhSachChucVu}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  Margin="15,0,15,0"
+                  Style="{StaticResource MaterialDesignDataGrid}"
+                  materialDesign:DataGridAssist.CellPadding="13 8"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="8"
+                  BorderThickness="1"
+                  BorderBrush="{DynamicResource MaterialDesignDivider}"
+                  Background="White"
+                  RowBackground="White"
+                  AlternatingRowBackground="#F9F9F9">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn 
+                    ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                    EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}"
+                    Header="" Width="60"/>
+                <DataGridTextColumn Header="Mã chức vụ" 
+                                    Binding="{Binding MaChucVu}" 
+                                    Width="120"/>
+                <DataGridTextColumn Header="Tên chức vụ" 
+                                    Binding="{Binding TenChucVu}" 
+                                    Width="*"/>
+                <DataGridTextColumn Header="Mô tả" 
+                                    Binding="{Binding MoTa}" 
+                                    Width="*"/>
+
+                <!-- Cột chứa các nút tác vụ -->
+                <DataGridTemplateColumn Header="Thao tác" Width="120">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <!-- Nút chỉnh sửa -->
+                                <Button Style="{StaticResource MaterialDesignIconButton}"
+                                        ToolTip="Sửa" Click="btnSua_Click"
+                                        Background="{DynamicResource PrimaryHueLightBrush}" 
+                                        Width="26" Height="26" Padding="2" Margin="0,1">
+                                    <materialDesign:PackIcon Kind="Edit" Width="15" Height="15" Foreground="White"/>
+                                </Button>
+                                <Button Style="{StaticResource MaterialDesignIconButton}"
+                                        ToolTip="Xóa" Margin="8,1,0,1"
+                                        Background="{DynamicResource SecondaryDelete}" 
+                                        Width="26" Height="26" 
+                                        Padding="2" Click="btnXoa_Click">
+                                    <materialDesign:PackIcon Kind="Delete" Width="15" Height="15" Foreground="White"/>
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Phân trang - Chỉ hiển thị khi có nhiều bản ghi -->
+        <Grid Grid.Row="3" 
+              Margin="15,10,15,15"
+              Visibility="{Binding ShowPagination, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Thông tin tổng số bản ghi -->
+            <TextBlock Grid.Column="0" 
+                       Text="{Binding TongSoBanGhi, StringFormat='Tổng số: {0} bản ghi'}" 
+                       VerticalAlignment="Center"/>
+
+            <!-- Điều khiển phân trang -->
+            <StackPanel Grid.Column="2" 
+                        Orientation="Horizontal" 
+                        HorizontalAlignment="Right">
+                <Button Style="{StaticResource ActionIconButton}"
+                        ToolTip="Trang đầu"
+                        Command="{Binding VeTrangDauCommand}">
+                    <materialDesign:PackIcon Kind="PageFirst" Height="18" Width="18" Foreground="#3F51B5"/>
+                </Button>
+                <Button Style="{StaticResource ActionIconButton}"
+                        ToolTip="Trang trước"
+                        Command="{Binding VeTrangTruocCommand}">
+                    <materialDesign:PackIcon Kind="ChevronLeft" Height="18" Width="18" Foreground="#3F51B5"/>
+                </Button>
+
+                <TextBlock VerticalAlignment="Center" Margin="8,0">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="Trang {0}/{1}">
+                            <Binding Path="TrangHienTai"/>
+                            <Binding Path="TongSoTrang"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+
+                <Button Style="{StaticResource ActionIconButton}"
+                        ToolTip="Trang sau"
+                        Command="{Binding DenTrangSauCommand}">
+                    <materialDesign:PackIcon Kind="ChevronRight" Height="18" Width="18" Foreground="#3F51B5"/>
+                </Button>
+                <Button Style="{StaticResource ActionIconButton}"
+                        ToolTip="Trang cuối"
+                        Command="{Binding DenTrangCuoiCommand}">
+                    <materialDesign:PackIcon Kind="PageLast" Height="18" Width="18" Foreground="#3F51B5"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Thông báo khi không có dữ liệu 
+        <TextBlock Grid.Row="2"
+                   Text="Không có dữ liệu chức vụ"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="16"
+                   Foreground="{DynamicResource PrimaryHueMidBrush}"
+                   Visibility="{Binding IsEmptyData, Converter={StaticResource BooleanToVisibilityConverter}}"/> -->
+    </Grid>
+</UserControl>

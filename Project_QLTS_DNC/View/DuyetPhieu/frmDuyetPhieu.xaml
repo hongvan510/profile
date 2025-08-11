@@ -1,0 +1,619 @@
+﻿<UserControl x:Class="Project_QLTS_DNC.View.DuyetPhieu.frmDuyetPhieu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Project_QLTS_DNC.View.DuyetPhieu"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1280"
+             Background="White">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!-- Style cho các action button -->
+            <Style x:Key="ActionButton" TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                <Setter Property="Height" Value="36"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="4"/>
+                <Setter Property="Padding" Value="12,0"/>
+                <Setter Property="Margin" Value="8,0,0,0"/>
+            </Style>
+
+            <!-- Style cho Card tổng quan -->
+            <Style x:Key="OverviewCard" TargetType="{x:Type materialDesign:Card}">
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Padding" Value="15"/>
+                <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth2"/>
+                <Setter Property="UniformCornerRadius" Value="8"/>
+                <Setter Property="Background" Value="White"/>
+                <Style.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation Duration="0:0:0.2" To="-5,-5,-5,-5" 
+                                                    Storyboard.TargetProperty="Margin"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ThicknessAnimation Duration="0:0:0.2" To="10,10,10,10" 
+                                                    Storyboard.TargetProperty="Margin"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Style cho DataGrid Row với hover effect -->
+            <Style x:Key="DanhSachPhieuRow" TargetType="{x:Type DataGridRow}">
+                <Setter Property="MinHeight" Value="45"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#E3F2FD"/>
+                        <Setter Property="Foreground" Value="#0071f5"/>
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="#BBDEFB"/>
+                        <Setter Property="Foreground" Value="#0071f5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Style cho DataGrid Cell -->
+            <Style x:Key="DanhSachPhieuCell" TargetType="{x:Type DataGridCell}">
+                <Setter Property="Padding" Value="10,8"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridCell}">
+                            <Border Padding="{TemplateBinding Padding}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    Background="{TemplateBinding Background}" 
+                                    SnapsToDevicePixels="True">
+                                <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                              VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Style cho DataGrid Header -->
+            <Style x:Key="DanhSachPhieuColumnHeader" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Padding" Value="10,12"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="BorderThickness" Value="0,0,1,0"/>
+                <Setter Property="BorderBrush" Value="#FFFFFF"/>
+                <Setter Property="Height" Value="45"/>
+            </Style>
+
+            <!-- Style cho trạng thái -->
+            <Style x:Key="TrangThaiTextBlock" TargetType="{x:Type TextBlock}">
+                <Setter Property="Padding" Value="8,4"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="TextAlignment" Value="Center"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="Medium"/>
+                <Setter Property="Margin" Value="4,0"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding TrangThai}" Value="Đã duyệt">
+                        <Setter Property="Background" Value="#4CAF50"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding TrangThai}" Value="Từ chối duyệt">
+                        <Setter Property="Background" Value="#F44336"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding TrangThai}" Value="Chưa duyệt">
+                        <Setter Property="Background" Value="#FF9800"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Style cho Filter Controls -->
+            <Style x:Key="FilterCard" TargetType="{x:Type materialDesign:Card}">
+                <Setter Property="Margin" Value="10,0,10,15"/>
+                <Setter Property="Padding" Value="16"/>
+                <Setter Property="UniformCornerRadius" Value="8"/>
+                <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth1"/>
+                <Setter Property="Background" Value="#FAFAFA"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top Bar - Title and Buttons -->
+        <Grid Grid.Row="0" Margin="20,20,20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Title with icon -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                <materialDesign:PackIcon Kind="Receipt" Width="32" Height="32" 
+                                      Foreground="{DynamicResource PrimaryHueMidBrush}" Margin="0,0,12,0"/>
+                <TextBlock Text="DUYỆT PHIẾU" FontSize="28" FontWeight="Bold" 
+                         Foreground="{DynamicResource PrimaryHueMidBrush}" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Search Bar -->
+        <materialDesign:Card Grid.Row="1" Margin="20,0,20,20" UniformCornerRadius="8" Padding="0"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth1">
+            <Grid Margin="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Search Icon -->
+                <materialDesign:PackIcon Grid.Column="0" Kind="Search" Width="24" Height="24" 
+                                 Foreground="{DynamicResource PrimaryHueMidBrush}" VerticalAlignment="Center" Margin="0,0,12,0"/>
+
+                <!-- Search TextBox with Material Design -->
+                <TextBox x:Name="txtSearch" Grid.Column="1" 
+                 materialDesign:HintAssist.Hint="Tìm kiếm phiếu theo mã, ngày tạo, trạng thái..."
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 VerticalAlignment="Center" Margin="0,0,20,0" 
+                 FontSize="14"
+             />
+
+                <!-- Search Button with Material Design -->
+                <Button x:Name="btnSearch" Grid.Column="2" Style="{StaticResource MaterialDesignRaisedButton}"
+                Background="{DynamicResource PrimaryHueMidBrush}" Foreground="White" 
+                materialDesign:ButtonAssist.CornerRadius="8"
+                Height="40" 
+                MinWidth="120" 
+                Click="btnSearch_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Magnify" Width="20" Height="20" Margin="0,0,8,0"/>
+                        <TextBlock Text="Tìm kiếm" VerticalAlignment="Center" FontWeight="Medium" FontSize="14"/>
+                    </StackPanel>
+                </Button>
+
+                <!-- Refresh Button with Material Design -->
+                <Button x:Name="btnLoadDuLieu" Grid.Column="3" Margin="12,0,0,0"  Click="btnLoadDuLieu_Click"
+                    Background="{DynamicResource PrimaryHueLightBrush}" Height="40" Width="40" 
+                    Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+                    ToolTip="Làm mới dữ liệu"
+                    HorizontalAlignment="Right">
+                    <materialDesign:PackIcon Kind="Refresh" Width="20" Height="20" 
+                         VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Button>
+            </Grid>
+        </materialDesign:Card>
+
+        <!-- TabControl -->
+        <TabControl x:Name="tabMain" Grid.Row="2" Margin="20,0,20,20" 
+                  materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                  Style="{StaticResource MaterialDesignTabControl}">
+
+            <!-- Tab Tổng Quan -->
+            <TabItem Header="TỔNG QUAN" Width="150" FontSize="14" FontWeight="Medium">
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Cards Overview -->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Card Phiếu Cần Duyệt -->
+                        <materialDesign:Card Grid.Column="0" Style="{StaticResource OverviewCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16">
+                                    <Border Background="#E3F2FD" Width="48" Height="48" CornerRadius="24">
+                                        <materialDesign:PackIcon Kind="Clock" Width="28" Height="28" 
+                                                           Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel Margin="16,0,0,0">
+                                        <TextBlock Text="PHIẾU CẦN DUYỆT" 
+                                            FontWeight="SemiBold" FontSize="16" 
+                                            Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                        <TextBlock Text="Số lượng phiếu đang chờ duyệt" 
+                                            FontSize="12"
+                                            Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="1" x:Name="txtTongPhieuCanDuyet" 
+                                     Text="12" 
+                                     FontSize="48" 
+                                     FontWeight="Bold"
+                                     Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                     HorizontalAlignment="Center" 
+                                     Margin="0,10"/>
+                            </Grid>
+                        </materialDesign:Card>
+
+                        <!-- Card Phiếu Đã Duyệt -->
+                        <materialDesign:Card Grid.Column="1" Style="{StaticResource OverviewCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16">
+                                    <Border Background="#E8F5E9" Width="48" Height="48" CornerRadius="24">
+                                        <materialDesign:PackIcon Kind="CheckCircle" Width="28" Height="28" 
+                                                           Foreground="#4CAF50"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel Margin="16,0,0,0">
+                                        <TextBlock Text="PHIẾU ĐÃ DUYỆT" 
+                                            FontWeight="SemiBold" FontSize="16" 
+                                            Foreground="#4CAF50"/>
+                                        <TextBlock Text="Phiếu đã xử lý và chấp nhận" 
+                                            FontSize="12"
+                                            Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="1" x:Name="txtTongPhieuDaDuyet" 
+                                         Text="10" 
+                                         FontSize="48" 
+                                         FontWeight="Bold" 
+                                         Foreground="#4CAF50"
+                                         HorizontalAlignment="Center" 
+                                         Margin="0,10"/>
+                            </Grid>
+                        </materialDesign:Card>
+
+                        <!-- Card Phiếu Từ Chối -->
+                        <materialDesign:Card Grid.Column="2" Style="{StaticResource OverviewCard}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16">
+                                    <Border Background="#FFEBEE" Width="48" Height="48" CornerRadius="24">
+                                        <materialDesign:PackIcon Kind="CloseCircle" Width="28" Height="28" 
+                                                           Foreground="#F44336"
+                                                           VerticalAlignment="Center"
+                                                           HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel Margin="16,0,0,0">
+                                        <TextBlock Text="PHIẾU TỪ CHỐI" 
+                                            FontWeight="SemiBold" FontSize="16" 
+                                            Foreground="#F44336"/>
+                                        <TextBlock Text="Phiếu đã bị từ chối duyệt" 
+                                            FontSize="12"
+                                            Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="1" x:Name="txtTongPhieuTuChoi" 
+                                         Text="2" 
+                                         FontSize="48" 
+                                         FontWeight="Bold" 
+                                         Foreground="#F44336"
+                                         HorizontalAlignment="Center" 
+                                         Margin="0,10"/>
+                            </Grid>
+                        </materialDesign:Card>
+                    </Grid>
+
+                    <!-- Chart Section -->
+                    <Grid Grid.Row="1" Margin="0,20,0,0">
+                        <materialDesign:Card Padding="20" UniformCornerRadius="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,16">
+                                    <materialDesign:PackIcon Kind="ChartBar" Width="24" Height="24" 
+                                                    Foreground="{DynamicResource PrimaryHueMidBrush}"
+                                                    VerticalAlignment="Center"/>
+                                    <TextBlock Text="THỐNG KÊ TRẠNG THÁI PHIẾU" 
+                                        Margin="8,0,0,0"
+                                        FontWeight="Bold" 
+                                        FontSize="16" 
+                                        Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                </StackPanel>
+
+                                <TextBlock Grid.Row="1" 
+                                       Text="Biểu đồ thống kê sẽ được hiển thị ở đây" 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                       FontStyle="Italic"/>
+                            </Grid>
+                        </materialDesign:Card>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab phiếu cần duyệt -->
+            <TabItem Header="PHIẾU CẦN DUYỆT" Width="150" FontSize="14" FontWeight="Medium">
+                <Grid Margin="0,20,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Filter Controls -->
+                    <materialDesign:Card Grid.Row="0" Style="{StaticResource FilterCard}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Loại phiếu Combobox -->
+                            <StackPanel Grid.Column="0" Orientation="Vertical" Margin="0,0,16,0">
+                                <TextBlock Text="LOẠI PHIẾU" 
+                                    FontSize="12" 
+                                    FontWeight="Medium" 
+                                    Margin="0,0,0,4"
+                                    Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+
+                                <ComboBox x:Name="cboLoaiPhieu" 
+                                    materialDesign:HintAssist.Hint="Chọn loại phiếu"
+                                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                    Width="240"
+                                    SelectionChanged="cboLoaiPhieu_SelectionChanged"
+                                    SelectedIndex="0">
+                                    <ComboBoxItem Content="Tất cả"/>
+                                    <ComboBoxItem Content="Phiếu nhập"/>
+                                    <!--  <ComboBoxItem Content="Phiếu xuất"/>-->
+                                    <ComboBoxItem Content="Phiếu báo hỏng"/>
+                                    <ComboBoxItem Content="Phiếu bàn giao tài sản"/>
+                                    <ComboBoxItem Content="Phiếu đề nghị mua"/>
+                                    <ComboBoxItem Content="Phiếu lịch sử di chuyển tài sản"/>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <!-- Từ ngày DatePicker -->
+                            <StackPanel Grid.Column="1" Orientation="Vertical" Margin="0,0,16,0">
+                                <TextBlock Text="TỪ NGÀY" 
+                                    FontSize="12" 
+                                    FontWeight="Medium" 
+                                    Margin="0,0,0,4"
+                                    Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+
+                                <DatePicker x:Name="dpTuNgay"
+                                    Width="150"
+                                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                    materialDesign:HintAssist.Hint="Từ ngày" 
+                                    SelectedDateChanged="dpTuNgay_SelectedDateChanged"/>
+                            </StackPanel>
+
+                            <!-- Đến ngày DatePicker -->
+                            <StackPanel Grid.Column="2" Orientation="Vertical" Margin="0,0,16,0">
+                                <TextBlock Text="ĐẾN NGÀY" 
+                                    FontSize="12" 
+                                    FontWeight="Medium" 
+                                    Margin="0,0,0,4"
+                                    Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+
+                                <DatePicker x:Name="dpDenNgay"
+                                    Width="150"
+                                    Style="{StaticResource MaterialDesignOutlinedDatePicker}"
+                                    materialDesign:HintAssist.Hint="Đến ngày" 
+                                    SelectedDateChanged="dpDenNgay_SelectedDateChanged"/>
+                            </StackPanel>
+
+                            <!-- Xem chi tiết Button -->
+                            <Button x:Name="btnDetail" 
+                                Grid.Column="4" 
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Background="{DynamicResource PrimaryHueMidBrush}" 
+                                Foreground="White" 
+                                materialDesign:ButtonAssist.CornerRadius="8"
+                                Height="42" 
+                                MinWidth="150" 
+                                Click="btnDetail_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="FileDocumentEdit" 
+                                                     Width="20" Height="20" 
+                                                     Margin="0,0,8,0"/>
+                                    <TextBlock Text="XEM CHI TIẾT" 
+                                         VerticalAlignment="Center" 
+                                         FontWeight="Medium" 
+                                         FontSize="14"/>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </materialDesign:Card>
+
+                    <!-- DataGrid for phiếu cần duyệt -->
+                    <materialDesign:Card Grid.Row="1" UniformCornerRadius="8" Margin="10,0,10,0"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                        <DataGrid Grid.Row="1" 
+                              x:Name="dgPhieuCanDuyet" 
+                              AutoGenerateColumns="False" 
+                              IsReadOnly="True" 
+                              CanUserAddRows="False" 
+                              BorderThickness="0"
+                              RowStyle="{StaticResource DanhSachPhieuRow}"
+                              CellStyle="{StaticResource DanhSachPhieuCell}"
+                              ColumnHeaderStyle="{StaticResource DanhSachPhieuColumnHeader}"
+                              VerticalScrollBarVisibility="Auto" 
+                              Loaded="dgPhieuCanDuyet_Loaded"
+                              SelectionMode="Single"
+                              SelectionUnit="FullRow"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="8,0"
+                              materialDesign:DataGridAssist.CellPadding="8">
+
+                            <DataGrid.Columns>
+                                <!-- Mã phiếu -->
+                                <DataGridTemplateColumn Header="MÃ PHIẾU" Width="*" MinWidth="100" SortMemberPath="MaPhieu">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="Identifier" 
+                                   Width="16" Height="16" 
+                                   VerticalAlignment="Center" 
+                                   Foreground="{DynamicResource PrimaryHueMidBrush}" 
+                                   Margin="0,0,8,0"/>
+                                                <TextBlock Text="{Binding MaPhieu}" 
+                     VerticalAlignment="Center" 
+                     FontWeight="Medium"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- Loại phiếu -->
+                                <DataGridTemplateColumn Header="LOẠI PHIẾU" Width="*" MinWidth="120" SortMemberPath="LoaiPhieu">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding LoaiPhieu}" 
+                 VerticalAlignment="Center" 
+                 HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- Ngày tạo phiếu -->
+                                <DataGridTemplateColumn Header="NGÀY TẠO" Width="*" MinWidth="120" SortMemberPath="NgayTaoPhieu">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <materialDesign:PackIcon Kind="Calendar" 
+                                   Width="16" Height="16" 
+                                   VerticalAlignment="Center" 
+                                   Foreground="#FF9800" 
+                                   Margin="0,0,8,0"/>
+                                                <TextBlock Text="{Binding NgayTaoPhieu, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}" 
+           VerticalAlignment="Center"/>
+
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- Trạng thái -->
+                                <DataGridTemplateColumn Header="TRẠNG THÁI" Width="*" MinWidth="120" SortMemberPath="TrangThai">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border CornerRadius="4" Background="Transparent">
+                                                <TextBlock Text="{Binding TrangThai}"
+                         Style="{StaticResource TrangThaiTextBlock}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <!-- Thao tác -->
+                                <DataGridTemplateColumn Header="THAO TÁC" Width="Auto" MinWidth="120">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+                    ToolTip="Xem Chi Tiết"
+                    Background="{DynamicResource PrimaryHueMidBrush}" 
+                    Width="36" Height="36" 
+                    Padding="0"
+                    Click="btnXemChiTiet_Click"
+                    materialDesign:ButtonAssist.CornerRadius="18"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Margin="0,0,8,0">
+                                                    <materialDesign:PackIcon Kind="Eye" Width="20" Height="20" Foreground="White"/>
+                                                </Button>
+
+                                                <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}" 
+                    ToolTip="In phiếu"
+                    Background="#90CAF9" 
+                    Width="36" Height="36" 
+                    Padding="0"
+                    materialDesign:ButtonAssist.CornerRadius="18"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center" x:Name="btnIn" Click="btnIn_Click">
+                                                    <materialDesign:PackIcon Kind="Printer" Width="20" Height="20" Foreground="White"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+
+                            <!-- Empty state message -->
+                            <DataGrid.Style>
+                                <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource MaterialDesignDataGrid}">
+                                    <Style.Triggers>
+                                        <Trigger Property="HasItems" Value="False">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Grid>
+                                                            <Border Background="White" 
+                                                             Padding="20">
+                                                                <StackPanel HorizontalAlignment="Center" 
+                                                                    VerticalAlignment="Center">
+                                                                    <materialDesign:PackIcon Kind="FileDocumentOutline" 
+                                                                                   Width="48" Height="48" 
+                                                                                   HorizontalAlignment="Center"
+                                                                                   Foreground="{DynamicResource MaterialDesignBodyLight}"/>
+                                                                    <TextBlock Text="Không có phiếu nào" 
+                                                                     FontSize="16" 
+                                                                     FontWeight="Medium"
+                                                                     Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                                                     Margin="0,16,0,8"
+                                                                     HorizontalAlignment="Center"/>
+                                                                    <TextBlock Text="Thử thay đổi bộ lọc hoặc tìm kiếm khác" 
+                                                                     FontSize="14"
+                                                                     Foreground="{DynamicResource MaterialDesignBodyLight}"
+                                                                     HorizontalAlignment="Center"/>
+                                                                </StackPanel>
+                                                            </Border>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGrid.Style>
+                        </DataGrid>
+
+                    </materialDesign:Card>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>
